@@ -4,10 +4,11 @@ fileid = fopen(file, 'r');
 tab = readtable(file);
 
 tds_epoch = [];
-tds_channel_ref = [];
+tds_channel_ref = zeros(1000, 3);
 tds_samp_rate = [];
 tds_data = zeros(1000, 3, 32768);
 tds_nsamp = [];
+tds_SRF = zeros(1000, 2, 32768);
 %tds_LW_peak = [];
 
 density_epoch = zeros(1000, 200);
@@ -39,10 +40,11 @@ for r=1:length(tab.Var1)
             disp('found something')
         
             tds_epoch(end+1) = ep;
-            tds_channel_ref(end+1) = data.channel_ref(ind);
+            tds_channel_ref(length(tds_epoch), :) = data.channel_ref(:,ind);
             tds_samp_rate(end+1) = fs;
             tds_data(length(tds_epoch), :, 1:nsamp) = data.data(:,1:nsamp,ind);
             tds_nsamp(end+1) = nsamp;
+            tds_SRF(length(tds_epoch), :, 1:nsamp) = convert_to_SRF(data, ind);
             %tds_LW_peak(end+1) = locs(ii)/1e3;
 
             density_epoch(length(tds_epoch), 1:length(d_ep)) = d_ep;
