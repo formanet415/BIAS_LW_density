@@ -13,19 +13,19 @@ f = f(2:end);
 df = (f(2)-f(1))/2.;
 [pks, locs, w] = findpeaks(10.*log10(p), f, 'MinPeakProminence', 20);
 if isempty(pks)
-    disp('empty peaks');
+    %disp('empty peaks');
     freq = nan;
     return
 end
 f_ind = find(locs > 1e4 & locs < 8e4);
 if isempty(f_ind)
-    disp('empty f_ind');
+    %disp('empty f_ind');
     freq = nan;
     return
 end
 [~, ii] = max(pks(f_ind), [], 2);
 ii = f_ind(ii);
-disp('found freq');
+%disp('found freq');
 freq = locs(ii)/1e3;
 %iii = find(f >= (locs(ii) - w(ii)/2.) & f <= (locs(ii) + w(ii)/2.));
 %amp = max(uu, [], 2); 
