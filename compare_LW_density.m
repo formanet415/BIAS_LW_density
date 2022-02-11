@@ -32,4 +32,22 @@
     if ~isnan(mean(freqs))
         saveas(gcf,fullfile(pwd, 'plots', sprintf('LW_freq_%s.jpg', datestr(t0, 'yyyy_mm_dd_HHMMSS'))))
     end
+    close(gcf)
+    
+    n = (mean(freqs)/8.9).^2;
+    plot(ttime*1e3,n)
+    hold on
+    plot(ttime*1e3,density_data(i,1:density_recs(i)))
+    title('Plasma density within the snapshot')
+    xlabel(sprintf('time since %s (ms)', datestr(t0)))
+    ylabel('electron density (cm^{-3})')
+    legend('n_{e,pk}','n_{e,SC}')
+    if ~isnan(mean(freqs))
+        saveas(gcf,fullfile(pwd, 'plots', sprintf('LW_dens_%s.jpg', datestr(t0, 'yyyy_mm_dd_HHMMSS'))))
+    end
+    close(gcf)
+    
+    
+    
+    
  end
